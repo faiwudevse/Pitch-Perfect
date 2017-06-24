@@ -97,10 +97,10 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
                     delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime) / Double(self.audioFile.processingFormat.sampleRate)
                 }
             }
-            
             // schedule a stop timer for when audio finishes playing
             self.stopTimer = Timer(timeInterval: delayInSeconds, target: self, selector: #selector(PlaySoundsViewController.stopAudio), userInfo: nil, repeats: false)
             RunLoop.main.add(self.stopTimer!, forMode: RunLoopMode.defaultRunLoopMode)
+            
         }
         
         do {
@@ -110,9 +110,12 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
             return
         }
         
+        
+        
         // play the recording!
         audioPlayerNode.play()
     }
+    
     
     func stopAudio() {
         
@@ -138,6 +141,37 @@ func connectAudioNodes(_ nodes: AVAudioNode...) {
         for x in 0..<nodes.count-1 {
             audioEngine.connect(nodes[x], to: nodes[x+1], format: audioFile.processingFormat)
         }
+    }
+    
+    // MARK: calculate sound duration
+    func soundDuration(){
+        var soundDurationInSeconds: Double = 0
+        
+        soundDurationInSeconds = Double(self.audioFile.length) / Double(self.audioFile.processingFormat.sampleRate)
+        
+        self.timerLabel.text = calculateToMinutes(seconds: Int(soundDurationInSeconds))
+        
+    }
+    
+    // MARK: calculate seconds into minutes
+    
+    func calculateToMinutes(seconds: Int) -> String{
+        
+        var mintues = ""
+        
+        if (seconds > 60){
+            mintues = String(seconds/60) + "." + String(seconds%60)
+        }
+        else{
+            if(seconds == 0){
+                mintues = "0.1"
+            }
+            else{
+                mintues = "0." + String(seconds)
+            }
+            
+        }
+        return mintues
     }
     
     // MARK: UI Functions
@@ -167,4 +201,7 @@ func connectAudioNodes(_ nodes: AVAudioNode...) {
         alert.addAction(UIAlertAction(title: Alerts.DismissAlert, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    
+    
 }

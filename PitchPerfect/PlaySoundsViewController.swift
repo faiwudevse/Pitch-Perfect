@@ -17,6 +17,7 @@ class PlaySoundsViewController: UIViewController {
     @IBOutlet weak var echoButton: UIButton!
     @IBOutlet weak var reverbButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var timerLabel: UILabel!
     
     var recordedAudioURL:URL!
     var audioFile:AVAudioFile!
@@ -60,6 +61,7 @@ class PlaySoundsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureUI(.notPlaying)
+        soundDuration()
     }
 
 }
