@@ -10,6 +10,6 @@ In this Screen, you can play 6 different kind of sound effects.
 
 
 
- ![alt text](https://github.com/fw5dev/Udacity_IOS_ND_P1/blob/master/Sounds_Effect_Screen.png)
+   ![alt text](https://github.com/fw5dev/Udacity_IOS_ND_P1/blob/master/Sounds_Effect_Screen.png)
 
 
