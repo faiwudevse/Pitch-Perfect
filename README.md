@@ -1,5 +1,5 @@
 # Pitch Perfect
-This app devleoped in Swift  allows users to record their voices and play with different sounds effect .
+This app is devleoped in Swift  that allows users to record their voices and play with different sounds effect .
 
 ## How to Run
 Download the project and run it from Xcode
