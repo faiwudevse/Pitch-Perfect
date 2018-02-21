@@ -88,7 +88,6 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
         audioPlayerNode.scheduleFile(audioFile, at: nil) {
             
             var delayInSeconds: Double = 0
-            
             if let lastRenderTime = self.audioPlayerNode.lastRenderTime, let playerTime = self.audioPlayerNode.playerTime(forNodeTime: lastRenderTime) {
                 
                 if let rate = rate {
@@ -97,8 +96,9 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
                     delayInSeconds = Double(self.audioFile.length - playerTime.sampleTime) / Double(self.audioFile.processingFormat.sampleRate)
                 }
             }
+
             // schedule a stop timer for when audio finishes playing
-            self.stopTimer = Timer(timeInterval: delayInSeconds, target: self, selector: #selector(PlaySoundsViewController.stopAudio), userInfo: nil, repeats: false)
+            self.stopTimer = Timer(timeInterval: delayInSeconds, target: self, selector: #selector(self.stopAudio), userInfo: nil, repeats: false)
             RunLoop.main.add(self.stopTimer!, forMode: RunLoopMode.defaultRunLoopMode)
             
         }
@@ -117,7 +117,7 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
     }
     
     
-    func stopAudio() {
+    @objc func stopAudio() {
         
         if let audioPlayerNode = audioPlayerNode {
             audioPlayerNode.stop()
@@ -139,7 +139,7 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
     
 func connectAudioNodes(_ nodes: AVAudioNode...) {
         for x in 0..<nodes.count-1 {
-            audioEngine.connect(nodes[x], to: nodes[x+1], format: audioFile.processingFormat)
+        audioEngine.connect(nodes[x], to: nodes[x+1], format: audioFile.processingFormat)
         }
     }
     
@@ -147,8 +147,7 @@ func connectAudioNodes(_ nodes: AVAudioNode...) {
     func soundDuration(){
         var soundDurationInSeconds: Double = 0
         
-        soundDurationInSeconds = Double(self.audioFile.length) / Double(self.audioFile.processingFormat.sampleRate)
-        
+        soundDurationInSeconds = Double(self.audioFile.length) / Double(44100)
         self.timerLabel.text = calculateToMinutes(seconds: Int(soundDurationInSeconds))
         
     }
@@ -157,25 +156,30 @@ func connectAudioNodes(_ nodes: AVAudioNode...) {
     
     func calculateToMinutes(seconds: Int) -> String{
         
-        var mintues = ""
+        var time = ""
         
-        if (seconds > 60){
-            mintues = String(seconds/60) + "." + String(seconds%60)
+        if (seconds >= 60){
+            if(String(seconds%60).count > 1)
+            {
+                time = String(seconds/60) + ":0" + String(seconds%60)
+            }
+            else{
+                time = String(seconds/60) + ":0" + String(seconds%60)
+            }
         }
         else{
             if(seconds == 0){
-                mintues = "0.1"
+                time = "0:01"
             }
             else{
-                mintues = "0." + String(seconds)
+                time = "0:" + String(seconds)
             }
             
         }
-        return mintues
+        return time
     }
     
     // MARK: UI Functions
-
     func configureUI(_ playState: PlayingState) {
         switch(playState) {
         case .playing:

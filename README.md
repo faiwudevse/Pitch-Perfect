@@ -1,4 +1,4 @@
-# Udacity IOS Nanodegree Project 1
+# Pitch Perfect
 This app allows users to record their voices and play with different sounds effect .
 
 The screen below allows you to record your vocie by pressing the record button , after pressing the stop button it will take you to the sound effects screen.

@@ -8,8 +8,10 @@
 
 import UIKit
 import AVFoundation
+// MARK: - PlaySoundsViewController: PlaySoundsViewController
 class PlaySoundsViewController: UIViewController {
     
+    // MARK: Outlets
     @IBOutlet weak var snailButton: UIButton!
     @IBOutlet weak var chipmunkButton: UIButton!
     @IBOutlet weak var rabbitButton: UIButton!
@@ -19,6 +21,7 @@ class PlaySoundsViewController: UIViewController {
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var timerLabel: UILabel!
     
+    // MARK: Properties
     var recordedAudioURL:URL!
     var audioFile:AVAudioFile!
     var audioEngine:AVAudioEngine!
@@ -29,7 +32,7 @@ class PlaySoundsViewController: UIViewController {
         case slow = 0, fast, chipmunk, vader, echo, reverb
     }
     
-    
+    // MARK: PlaySoundForButton
     @IBAction func playSoundForButton(_ sender: UIButton) {
         switch(ButtonType(rawValue: sender.tag)!) {
         case .slow:
@@ -49,13 +52,25 @@ class PlaySoundsViewController: UIViewController {
         configureUI(.playing)
     }
     
+    // MARK: stopButtonPressed
     @IBAction func stopButtonPressed(_ sender: AnyObject) {
         stopAudio()
     }
     
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAudio()
+        timerLabel.isHidden = true
+        snailButton.imageView?.contentMode = .scaleAspectFit
+        chipmunkButton.imageView?.contentMode = .scaleAspectFit
+        rabbitButton.imageView?.contentMode = .scaleAspectFit
+        vaderButton.imageView?.contentMode = .scaleAspectFit
+        echoButton.imageView?.contentMode = .scaleAspectFit
+        reverbButton.imageView?.contentMode = .scaleAspectFit
+        stopButton.imageView?.contentMode = .scaleAspectFit
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
