@@ -1,14 +1,11 @@
 # Pitch Perfect
-This app allows users to record their voices and play with different sounds effect .
+This app devleoped in Swift  allows users to record their voices and play with different sounds effect .
 
-The screen below allows you to record your vocie by pressing the record button , after pressing the stop button it will take you to the sound effects screen.
+## How to Run
+Download the project and run it from Xcode
+
 
  ![alt text](https://github.com/fw5dev/Udacity_IOS_ND_P1/blob/master/Recording_Screen.png)
-
-
-In this Screen, you can play 6 different kind of sound effects.
-
-
 
 ![alt text](https://github.com/fw5dev/Udacity_IOS_ND_P1/blob/master/Sounds_Effect_Screen.png)
 
